@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+
+	"name": "CanvasCapture",
+	"short_name": "CanvasCapture",
+	"description": "Capture a canvas",
+	"version": "1.0",
+
+	"icons": {
+		"16": "assets/icon16.png",
+		"48": "assets/icon48.png",
+		"128": "assets/icon128.png"
+	},
+
+	"browser_action": {
+		"default_title": "Capture canvas!"
+	},
+
+	"permissions": [
+		"activeTab",
+		"downloads"
+	],
+
+	"background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": false
+	}
+
+}
