@@ -17,8 +17,7 @@
 	},
 
 	"permissions": [
-		"activeTab",
-		"downloads"
+		"activeTab"
 	],
 
 	"background": {
