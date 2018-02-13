@@ -1,38 +1,43 @@
 function snapshot () {
 
-	var canvases = document.querySelectorAll( 'canvas' );
+  function deepQuerySelectorAll(root, selector) {
+    const res = root.querySelectorAll(selector);
+    const nodes = [...root.querySelectorAll('*')].filter(n => !!n.shadowRoot);
+    const res2 = nodes.map(n => {
+      return deepQuerySelectorAll(n.shadowRoot, selector);
+    });
+    return [...res].concat(...res2);
+  }
 
-	var rAF = window.requestAnimationFrame;
+  const canvases = deepQuerySelectorAll(document, 'canvas' );
 
-	window.requestAnimationFrame = function( f ) {
+  const rAF = window.requestAnimationFrame;
 
-		window.requestAnimationFrame = rAF;
+  window.requestAnimationFrame = f => {
 
-		rAF( function( t ) {
+    window.requestAnimationFrame = rAF;
 
-			f( t );
+    rAF( t => {
 
-			[].forEach.call( canvases, function( c, id ) {
+      f( t );
 
-				c.toBlob( function(blob) {
+      [].forEach.call( canvases, ( c, id ) => {
 
-					var url;
-					if( window.webkitURL ) {
-						url = window.webkitURL.createObjectURL( blob );
-					} else {
-						url = URL.createObjectURL(blob);
-					}
-					var downloadBtn = document.createElement( 'a' );
-					downloadBtn.setAttribute( 'download', 'snap-' + id + '-' + performance.now() + '.png' );
-					downloadBtn.setAttribute( 'href', url );
-					downloadBtn.click();
+        c.toBlob( function(blob) {
 
-				});
+          const url = URL.createObjectURL(blob);
 
-			});
+          const downloadBtn = document.createElement( 'a' );
+          downloadBtn.setAttribute( 'download', 'snap-' + id + '-' + performance.now() + '.png' );
+          downloadBtn.setAttribute( 'href', url );
+          downloadBtn.click();
 
-		})
-	}
+        });
+
+      });
+
+    })
+  }
 
 }
 
