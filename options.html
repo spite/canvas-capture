@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CanvasCapture options</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; min-width: 360px; }
+  h1 { font-size: 15px; margin: 0 0 4px; }
+  p { margin: 0 0 12px; opacity: 0.75; }
+  label { display: block; margin: 6px 0; }
+  textarea { width: 100%; box-sizing: border-box; min-height: 90px; font: 13px ui-monospace, monospace; margin-top: 6px; }
+  textarea:disabled { opacity: 0.5; }
+  #status { min-height: 1.5em; margin-top: 8px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>Preserve WebGL buffers</h1>
+  <p>Forces <code>preserveDrawingBuffer</code> on WebGL canvases so they can be captured at any time. It can slow WebGL pages a little. Changes apply when a page is reloaded.</p>
+  <label><input type="radio" name="preserve" value="always"> On every site</label>
+  <label><input type="radio" name="preserve" value="sites"> Only on these sites (one hostname per line, subdomains included)</label>
+  <textarea id="sites" spellcheck="false" placeholder="shadertoy.com&#10;localhost"></textarea>
+  <label><input type="radio" name="preserve" value="off"> Off</label>
+  <div id="status"></div>
+  <script src="options.js"></script>
+</body>
+</html>
